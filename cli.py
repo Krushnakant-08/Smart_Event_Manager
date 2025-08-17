@@ -1,5 +1,6 @@
 import argparse
 from event_manager import add_event, edit_event, delete_event, view_events, search_events
+from reminder import send_event_reminders
 
 def run_cli():
     parser = argparse.ArgumentParser(description="Smart Event Manager CLI")
@@ -31,6 +32,10 @@ def run_cli():
     search = subparsers.add_parser("search", help="Search events by keyword")
     search.add_argument("--keyword", required=True)
 
+
+    # Remind (send event reminders)
+    remind = subparsers.add_parser("remind", help="Send reminder emails for today's events")
+
     args = parser.parse_args()
 
     if args.command == "add":
@@ -43,3 +48,5 @@ def run_cli():
         view_events(args.date)
     elif args.command == "search":
         search_events(args.keyword)
+    elif args.command == "remind":
+        send_event_reminders()
