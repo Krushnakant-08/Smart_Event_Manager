@@ -57,7 +57,9 @@ python main.py <command> [options]
 
 ### 1. Add a New Event
 ```bash
-python main.py add --name "Team Standup" --date "21-08-2025" --time "10:00" --type "Work" --location "Online"
+python main.py add --name "Project Demo" --date "18-08-2025" --time "15:00" --type "Work" --location "Main Auditorium"
+python main.py add --name "Doctor's Appointment" --date "19-08-2025" --time "11:30" --type "Personal"
+python main.py add --name "Client Call" --date "20-08-2025" --time "14:00" --type "Work"
 ```
 **Output:**
 ```
@@ -72,28 +74,27 @@ python main.py view
 ```
 **Output:**
 ```
-ID: 1 | Updated Meeting on 20-08-2025 at 14:00 (Work) @ Conference Room
-ID: 2 | Family Lunch on 20-08-2025 at 13:00 (Personal) @ Krishna Veg Restraunt
-ID: 4 | Family Lunch on 21-08-2025 at 13:00 (Personal) @ Krishna Veg Restraunt
+ID: 1 | Project Demo on 18-08-2025 at 15:00 (Work) @ Online Meeting Room
+ID: 2 | Doctor's Appointment on 19-08-2025 at 11:30 (Personal) @ Not specified
+ID: 3 | Client Call on 20-08-2025 at 14:00 (Work) @ Not specified
 ```
 
 ---
 
 ### 3. View Events for a Specific Date
 ```bash
-python main.py view --date "20-08-2025"
+python main.py view --date "19-08-2025"
 ```
 **Output:**
 ```
-ID: 1 | Updated Meeting on 20-08-2025 at 14:00 (Work) @ Conference Room
-ID: 2 | Family Lunch on 20-08-2025 at 13:00 (Personal) @ Krishna Veg Restraunt
+ID: 2 | Doctor's Appointment on 19-08-2025 at 11:30 (Personal) @ Not specified
 ```
 
 ---
 
 ### 4. Edit an Event
 ```bash
-python main.py edit --id 1 --field "name" --value "Project Kick-off Meeting"
+python main.py edit --id 1 --field "name" --value "Project Kick-off Demo"
 ```
 **Output:**
 ```
@@ -104,29 +105,23 @@ Event updated.
 
 ### 5. Search for an Event
 ```bash
-python main.py search --keyword "Lunch"
+python main.py search --keyword "Call"
 ```
 **Output:**
 ```
-ID: 2 | Family Lunch on 20-08-2025 at 13:00
-ID: 4 | Family Lunch on 21-08-2025 at 13:00
+ID: 3 | Client Call on 20-08-2025 at 14:00
 ```
 
 ---
 
 ### 6. Delete an Event
 ```bash
-python main.py delete --id 3
+python main.py delete --id 2
 ```
 **Output:**
 ```
 Event deleted.
 ```
-
----
-
-## 📝 License
-This project is open-source and available under the **MIT License**.  
 
 ---
 

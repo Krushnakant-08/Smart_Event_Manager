@@ -1,3 +1,4 @@
+from datetime import datetime
 from storage import load_events, save_events
 from conflict_checker import check_conflict
 from utils import validate_datetime
@@ -49,6 +50,9 @@ def delete_event(event_id):
 
 def view_events(date=None):
     events = load_events()
+    today_str = datetime.now().strftime("%d-%m-%Y")
+    if date == "Today" or date == "today":
+        date = today_str
     if date:
         events = [e for e in events if e["date"] == date]
     if not events:
