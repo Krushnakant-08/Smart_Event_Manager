@@ -1,109 +1,134 @@
-📅 Smart Event Manager CLI
-Welcome to the Smart Event Manager! This is a powerful, command-line interface (CLI) application built with Python to help you effortlessly schedule, manage, and track your events. Designed with a clean, modular architecture, this tool is both efficient and easy to use.
+# 📅 Smart Event Manager CLI
 
-✨ Core Features
-This project implements all the mandatory features required for a robust event management system:
+Welcome to the **Smart Event Manager**!  
+A powerful, Python-based command-line interface (CLI) tool that helps you schedule, manage, and track your events with ease.  
+With a clean modular structure and persistent storage, this project is both efficient and maintainable.  
 
-🗓️ Add, Edit, & Delete Events: Full CRUD (Create, Read, Update, Delete) functionality for your events.
+---
 
-👁️ Multiple View Options:
+## ✨ Features
 
-Day View: See all events scheduled for a specific date.
+- **🗓️ Add, Edit, & Delete Events** – Full CRUD functionality.  
+- **👁️ Multiple Views**  
+  - **Day View**: See all events scheduled for a specific date.  
+  - **All Events View**: List all scheduled events.  
+- **🔍 Search Events** – Instantly find events by keyword.  
+- **⚠️ Conflict Detection** – Prevents double-booking by detecting overlapping schedules.  
+- **💾 Persistent Storage** – Events are stored in `events.json`.  
+- **🧩 Modular Structure** – Code is separated into modules for maintainability and scalability.  
 
-All Events View: Get a complete list of all your scheduled events.
+---
 
-🔍 Powerful Search: Instantly find events by a keyword in the event's name.
+## 📂 Project Structure
 
-⚠️ Conflict Detection: The system automatically checks for scheduling conflicts at the same date and time to prevent double-booking.
-
-💾 Persistent Storage: Your events are safely stored in a events.json file, so you never lose your data.
-
-🧩 Modular Structure: The source code is organized into logical modules (cli, event_manager, storage, utils) for better readability, maintenance, and scalability.
-
-📂 Project Structure
-The project follows a modular structure to separate concerns and make the codebase clean and maintainable.
-
+```
 /smart-event-manager
 │
 ├── main.py             # Entry point of the application
-├── cli.py              # Defines the command-line interface (using argparse)
-├── event_manager.py    # Contains the core logic for event operations
-├── storage.py          # Handles data persistence (reading/writing to JSON file)
-├── utils.py            # Utility functions (e.g., date/time validation)
-├── conflict_checker.py # Logic to detect scheduling conflicts
-└── events.json         # The database file where events are stored
+├── cli.py              # Defines the command-line interface (argparse)
+├── event_manager.py    # Core logic for event operations
+├── storage.py          # Handles reading/writing JSON data
+├── utils.py            # Utility functions (date/time validation, etc.)
+├── conflict_checker.py # Scheduling conflict detection logic
+└── events.json         # Database file storing events
+```
 
-🚀 How to Run the Project
-Getting the Smart Event Manager up and running is simple. Just follow these steps:
+---
 
-1. Prerequisites
-Make sure you have Python 3.x installed on your system. No external libraries are needed.
+## 🚀 Getting Started
 
-2. Setup
-Ensure all the project files (main.py, cli.py, etc.) are in the same directory.
+### 1. Prerequisites
+- Python **3.x**  
+- No external dependencies required  
 
-3. Run from the Command Line
-Navigate to the project's root directory in your terminal and use python main.py followed by the desired command and its arguments.
+### 2. Setup
+Clone or download the project, and ensure all files are in the same directory.  
 
-💻 Sample CLI Commands
-Here are some examples of how to interact with the Smart Event Manager from your terminal.
+### 3. Run the Application
+Navigate to the project directory in your terminal and run:
 
-1. Add a New Event
-To schedule a new event. The --location argument is optional.
+```bash
+python main.py <command> [options]
+```
 
+---
+
+## 💻 Sample CLI Commands
+
+### 1. Add a New Event
+```bash
 python main.py add --name "Team Standup" --date "21-08-2025" --time "10:00" --type "Work" --location "Online"
-
-Output:
-
+```
+**Output:**
+```
 Event added successfully.
+```
 
-2. View All Events
-To see a list of all scheduled events.
+---
 
+### 2. View All Events
+```bash
 python main.py view
-
-Output:
-
+```
+**Output:**
+```
 ID: 1 | Updated Meeting on 20-08-2025 at 14:00 (Work) @ Conference Room
 ID: 2 | Family Lunch on 20-08-2025 at 13:00 (Personal) @ Krishna Veg Restraunt
 ID: 4 | Family Lunch on 21-08-2025 at 13:00 (Personal) @ Krishna Veg Restraunt
+```
 
-3. View Events for a Specific Date
-To filter events for a particular day.
+---
 
+### 3. View Events for a Specific Date
+```bash
 python main.py view --date "20-08-2025"
-
-Output:
-
+```
+**Output:**
+```
 ID: 1 | Updated Meeting on 20-08-2025 at 14:00 (Work) @ Conference Room
 ID: 2 | Family Lunch on 20-08-2025 at 13:00 (Personal) @ Krishna Veg Restraunt
+```
 
-4. Edit an Existing Event
-To modify the details of an event using its ID.
+---
 
+### 4. Edit an Event
+```bash
 python main.py edit --id 1 --field "name" --value "Project Kick-off Meeting"
-
-Output:
-
+```
+**Output:**
+```
 Event updated.
+```
 
-5. Search for an Event
-To find an event by a keyword (case-insensitive).
+---
 
+### 5. Search for an Event
+```bash
 python main.py search --keyword "Lunch"
-
-Output:
-
+```
+**Output:**
+```
 ID: 2 | Family Lunch on 20-08-2025 at 13:00
 ID: 4 | Family Lunch on 21-08-2025 at 13:00
+```
 
-6. Delete an Event
-To remove an event from the schedule using its ID.
+---
 
+### 6. Delete an Event
+```bash
 python main.py delete --id 3
-
-Output:
-
+```
+**Output:**
+```
 Event deleted.
+```
 
-Thank you for using the Smart Event Manager!
+---
+
+## 📝 License
+This project is open-source and available under the **MIT License**.  
+
+---
+
+## 🙌 Acknowledgments
+Thank you for using **Smart Event Manager CLI**! 🎉  
