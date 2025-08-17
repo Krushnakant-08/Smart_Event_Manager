@@ -90,6 +90,8 @@ python main.py add --name "Client Call" --date "20-08-2025" --time "14:00" --typ
 **Output:**
 ```
 Event added successfully.
+Event added successfully.
+Event added successfully.
 ```
 
 ---

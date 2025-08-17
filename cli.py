@@ -12,6 +12,7 @@ def run_cli():
     add.add_argument("--date", required=True, help="Format: DD-MM-YYYY")
     add.add_argument("--time", required=True, help="Format: HH:MM")
     add.add_argument("--type", required=True)
+    add.add_argument("--recurrence", required=False, help="Recurrence pattern (e.g., daily, weekly, monthly)")
     add.add_argument("--location", required=False)
 
     # Edit Event
@@ -39,7 +40,7 @@ def run_cli():
     args = parser.parse_args()
 
     if args.command == "add":
-        add_event(args.name, args.date, args.time, args.type, args.location)
+        add_event(args.name, args.date, args.time, args.type, args.location, args.recurrence)
     elif args.command == "edit":
         edit_event(args.id, args.field, args.value)
     elif args.command == "delete":

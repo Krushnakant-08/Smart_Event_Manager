@@ -3,7 +3,7 @@ from storage import load_events, save_events
 from conflict_checker import check_conflict
 from utils import validate_datetime
 
-def add_event(name, date, time, type_, location):
+def add_event(name, date, time, type_, location, recurrence):
     if not validate_datetime(date, time):
         print("Invalid date/time format.")
         return
@@ -19,7 +19,8 @@ def add_event(name, date, time, type_, location):
         "date": date,
         "time": time,
         "type": type_,
-        "location": location or "Not specified"
+        "location": location or "Not specified",
+        "recurrence": recurrence or "Not recurring"
     }
     events.append(event)
     save_events(events)
@@ -59,7 +60,7 @@ def view_events(date=None):
         print("No events found.")
         return
     for e in events:
-        print(f"ID: {e['id']} | {e['name']} on {e['date']} at {e['time']} ({e['type']}) @ {e['location']}")
+        print(f"ID: {e['id']} | {e['name']} on {e['date']} at {e['time']} ({e['type']}) @ {e['location']} | [Recurrence: {e['recurrence']}]")
 
 def search_events(keyword):
     events = load_events()
