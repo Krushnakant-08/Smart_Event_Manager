@@ -33,7 +33,6 @@ def run_cli():
     search = subparsers.add_parser("search", help="Search events by keyword")
     search.add_argument("--keyword", required=True)
 
-
     # Remind (send event reminders)
     remind = subparsers.add_parser("remind", help="Send reminder emails for today's events")
 
