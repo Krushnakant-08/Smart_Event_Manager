@@ -2,6 +2,7 @@ from datetime import datetime
 from storage import load_events, save_events
 from conflict_checker import check_conflict
 from utils import validate_datetime
+from recurrence import auto_add_next_occurrences
 
 def add_event(name, date, time, type_, location, recurrence):
     if not validate_datetime(date, time):
@@ -65,7 +66,11 @@ def delete_event(event_id):
 def view_events(date=None):
     events = load_events()
     today_str = datetime.now().strftime("%d-%m-%Y")
+
     if date == "Today" or date == "today":
+        if auto_add_next_occurrences(events):
+            save_events(events)
+            print("Recurring events: Next occurrence(s) auto-added.")
         date = today_str
     if date:
         events = [e for e in events if e["date"] == date]
