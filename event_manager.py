@@ -77,7 +77,7 @@ def view_events(date=None):
 
 def search_events(keyword):
     events = load_events()
-    results = [e for e in events if keyword.lower() in e["name"].lower()]
+    results = [e for e in events if keyword.lower() in e["name"].lower() or keyword.lower() in e["type"].lower()]
     if not results:
         print("No matching events.")
         return
