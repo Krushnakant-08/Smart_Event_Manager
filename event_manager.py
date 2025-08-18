@@ -9,6 +9,10 @@ def add_event(name, date, time, type_, location):
         return
 
     events = load_events()
+    for event in events:
+        if event["date"] == date and event["time"] == time and event["name"].lower() == name.lower():
+            print("Event already exists.")
+            return
     if check_conflict(events, date, time):
         print("Conflict detected with another event.")
         return
