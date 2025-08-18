@@ -7,13 +7,12 @@ from email.message import EmailMessage
 import os
 from dotenv import load_dotenv
 
-# --- CONFIGURATION ---
 # Load sensitive info from .env file
 load_dotenv()
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 APP_PASSWORD = os.getenv("APP_PASSWORD")
 SMTP_SERVER = os.getenv("SMTP_SERVER")
-SMTP_PORT = int(os.getenv("SMTP_PORT", 465))
+SMTP_PORT = int(os.getenv(465))
 
 def send_event_reminders():
     try:
