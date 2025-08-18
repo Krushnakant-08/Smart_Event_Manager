@@ -13,7 +13,8 @@ With a clean modular structure and persistent storage, this project is both effi
   - **Day View**: See all events scheduled for a specific date.  
   - **Today View**: Instantly see events scheduled for today.  
   - **All Events View**: List all scheduled events.  
-- **🔍 Search Events** – Instantly find events by keyword.  
+- **🔍 Search Events** – Instantly find events by keyword (in event name or type).  
+- **♻️ Recurring Events** – Add recurring events (daily, weekly, monthly).  
 - **⚠️ Conflict Detection** – Prevents double-booking by detecting overlapping schedules.  
 - **💾 Persistent Storage** – Events are stored in `events.json`.  
 - **📧 Email Reminders** – Automatically send reminders to attendees for today’s events.  
@@ -32,6 +33,7 @@ With a clean modular structure and persistent storage, this project is both effi
 ├── storage.py          # Handles reading/writing JSON data
 ├── utils.py            # Utility functions (date/time validation, etc.)
 ├── conflict_checker.py # Scheduling conflict detection logic
+├── recurrence.py       # Logic for recurring events
 ├── reminder.py         # Sends email reminders for today’s events
 ├── attendees.xlsx      # List of attendee emails
 └── events.json         # Database file storing events
@@ -72,23 +74,20 @@ Navigate to the project directory in your terminal and run:
 python main.py <command> [options]
 ```
 
-To send reminders manually:
-```bash
-python reminder.py
-```
-
 ---
 
 ## 💻 Sample CLI Commands
 
 ### 1. Add a New Event
 ```bash
-python main.py add --name "Project Demo" --date "18-08-2025" --time "15:00" --type "Work" --location "Main Auditorium"
+python main.py add --name "Project Demo" --date "18-08-2025" --time "15:00" --type "Work" --location "Online Meeting Room" --recurrence "monthly"
 python main.py add --name "Doctor's Appointment" --date "19-08-2025" --time "11:30" --type "Personal"
-python main.py add --name "Client Call" --date "20-08-2025" --time "14:00" --type "Work"
+python main.py add --name "Client Call" --date "20-08-2025" --time "13:00" --type "Work"
+python main.py add --name "Team Meeting" --date "18-08-2025" --time "13:00" --type "Work" --recurrence "daily"
 ```
 **Output:**
 ```
+Event added successfully.
 Event added successfully.
 Event added successfully.
 Event added successfully.
@@ -102,9 +101,10 @@ python main.py view
 ```
 **Output:**
 ```
-ID: 1 | Project Demo on 18-08-2025 at 15:00 (Work) @ Online Meeting Room
-ID: 2 | Doctor's Appointment on 19-08-2025 at 11:30 (Personal) @ Not specified
-ID: 3 | Client Call on 20-08-2025 at 14:00 (Work) @ Not specified
+ID: 1 | Project Demo on 18-08-2025 at 15:00 (Work) @ Online Meeting Room | [Recurrence: monthly]
+ID: 2 | Doctor's Appointment on 19-08-2025 at 11:30 (Personal) @ Not specified | [Recurrence: Not recurring]
+ID: 3 | Client Call on 20-08-2025 at 13:00 (Work) @ Not specified | [Recurrence: Not recurring]
+ID: 4 | Team Meeting on 18-08-2025 at 13:00 (Work) @ Not specified | [Recurrence: Daily]
 ```
 
 ---
@@ -115,26 +115,28 @@ python main.py view --date "19-08-2025"
 ```
 **Output:**
 ```
-ID: 2 | Doctor's Appointment on 19-08-2025 at 11:30 (Personal) @ Not specified
+ID: 2 | Doctor's Appointment on 19-08-2025 at 11:30 (Personal) @ Not specified | [Recurrence: Not recurring]
 ```
 
 ---
 
-### 4. View Today's Events
+### 4. View Today's Events (with auto-added recurrences)
 ```bash
 python main.py view --date "today"
 ```
 **Output:**
 ```
-ID: 1 | Project Demo on 18-08-2025 at 15:00 (Work) @ Online Meeting Room
+Recurring events: Next occurrence(s) auto-added.
+ID: 1 | Project Demo on 18-09-2025 at 15:00 (Work) @ Online Meeting Room | [Recurrence: monthly]
+ID: 4 | Team Meeting on 19-08-2025 at 13:00 (Work) @ Not specified | [Recurrence: Daily]
 ```
-*(Example output if today's date is 18-08-2025)*
 
 ---
 
-### 5. Edit an Event
+### 5. Edit an Event (by ID or Name)
 ```bash
 python main.py edit --id 1 --field "name" --value "Project Kick-off Demo"
+python main.py edit --name "Client Call" --field "time" --value "14:00"
 ```
 **Output:**
 ```
@@ -145,11 +147,13 @@ Event updated.
 
 ### 6. Search for an Event
 ```bash
-python main.py search --keyword "Call"
+python main.py search --keyword "Work"
 ```
 **Output:**
 ```
-ID: 3 | Client Call on 20-08-2025 at 14:00
+ID: 1 | Project Demo on 18-08-2025 at 15:00
+ID: 3 | Client Call on 20-08-2025 at 13:00
+ID: 4 | Team Meeting on 18-08-2025 at 13:00
 ```
 
 ---
@@ -167,13 +171,17 @@ Event deleted.
 
 ### 8. Send Email Reminders
 ```bash
-python reminder.py
+python main.py remind
 ```
 **Output:**
 ```
-Found 1 event(s) for today and 2 attendee(s).
+Found 2 event(s) for today and 2 attendee(s).
 
 --- Sending reminders for: 'Project Demo' at 15:00 ---
+  -> Successfully sent reminder to: attendee1@example.com
+  -> Successfully sent reminder to: attendee2@example.com
+
+--- Sending reminders for: 'Team Meeting' at 13:00 ---
   -> Successfully sent reminder to: attendee1@example.com
   -> Successfully sent reminder to: attendee2@example.com
 
