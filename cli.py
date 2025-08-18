@@ -12,11 +12,14 @@ def run_cli():
     add.add_argument("--date", required=True, help="Format: DD-MM-YYYY")
     add.add_argument("--time", required=True, help="Format: HH:MM")
     add.add_argument("--type", required=True)
+    add.add_argument("--recurrence", required=False, help="Recurrence pattern (e.g., daily, weekly, monthly)")
     add.add_argument("--location", required=False)
 
     # Edit Event
     edit = subparsers.add_parser("edit", help="Edit an existing event")
-    edit.add_argument("--id", type=int, required=True)
+    group = edit.add_mutually_exclusive_group(required=True)
+    group.add_argument("--id", type=int, help="Event ID")
+    group.add_argument("--name", type=str, help="Event name")
     edit.add_argument("--field", required=True)
     edit.add_argument("--value", required=True)
 
@@ -39,9 +42,12 @@ def run_cli():
     args = parser.parse_args()
 
     if args.command == "add":
-        add_event(args.name, args.date, args.time, args.type, args.location)
+        add_event(args.name, args.date, args.time, args.type, args.location, args.recurrence)
     elif args.command == "edit":
-        edit_event(args.id, args.field, args.value)
+        if args.id is not None:
+            edit_event(args.id, args.field, args.value)
+        else:
+            edit_event(args.name, args.field, args.value)
     elif args.command == "delete":
         delete_event(args.id)
     elif args.command == "view":

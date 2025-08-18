@@ -41,6 +41,15 @@ def edit_event(event_id, field, value):
             else:
                 print("Invalid field.")
                 return
+        elif event["name"].lower() == event_id.lower():
+            if field in event:
+                event[field] = value
+                save_events(events)
+                print("Event updated.")
+                return
+            else:
+                print("Invalid field.")
+                return
     print("Event not found.")
 
 def delete_event(event_id):
