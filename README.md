@@ -128,7 +128,7 @@ python main.py view --date "today"
 ```
 Recurring events: Next occurrence(s) auto-added.
 ID: 1 | Project Demo on 18-09-2025 at 15:00 (Work) @ Online Meeting Room | [Recurrence: monthly]
-ID: 4 | Team Meeting on 19-08-2025 at 13:00 (Work) @ Not specified | [Recurrence: Daily]
+ID: 4 | Team Meeting on 18-08-2025 at 13:00 (Work) @ Not specified | [Recurrence: Daily]
 ```
 
 ---
